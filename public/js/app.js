@@ -10,6 +10,7 @@ listItems.forEach((listItem) => {
     : (checkbox.checked = false);
 });
 
+// UPDATE
 editBtns.forEach((editBtn) => {
   editBtn.addEventListener('click', (e) => {
     const item = e.currentTarget.closest('.list-item');
@@ -17,33 +18,45 @@ editBtns.forEach((editBtn) => {
     listForm.querySelector('input[type="submit"]').value = 'Edit Item';
     listForm.method = 'PUT';
     const itemInput = listForm.querySelector('input[type="text"]');
-    itemInput.value = item.querySelector('.item').innerHTML;
+    const itemToUpdate = item.querySelector('.item');
+    itemInput.value = itemToUpdate.innerHTML;
+    const id = e.currentTarget.dataset.id;
 
-    const updatedItem = {
-      id: e.currentTarget.dataset.id,
-      item: itemInput.value,
-      status: item.classList.contains('complete') ? 'complete' : 'pending',
-    };
-
-    listForm.addEventListener('submit', (e) => {
+    listForm.onsubmit = (e) => {
       e.preventDefault();
-      console.log('form submited');
-      console.log(updatedItem);
-    });
+      const url = `/api/list/${id}`;
+      const updatedItem = {
+        id,
+        item: itemInput.value,
+        status: item.classList.contains('complete') ? 'complete' : 'pending',
+      };
+
+      fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedItem),
+      })
+        .then((response) => console.log(response.json()))
+        .then(() => console.log(`Item updated`))
+        .catch((err) => console.error(err));
+
+      itemToUpdate.innerHTML = itemInput.value;
+    };
   });
 });
 
-const xhr = new XMLHttpRequest();
+// DELETE
+deleteBtns.forEach((deleteBtn) => {
+  deleteBtn.addEventListener('click', (e) => {
+    const id = e.currentTarget.dataset.id;
+    const url = `/api/list/${id}`;
 
-// deleteBtns.forEach((deleteBtn) => {
-//   deleteBtn.addEventListener('click', (e) => {
-//     const id = e.currentTarget.dataset.id;
-//     const url = `/delete/${id}`;
-//     xhr.open('DELETE', url, true);
-//     xhr.onreadystatechange = () => {
-//       if (xhr.readyState == 4 && xhr.status == 200) {
-//         console.log(xhr.responseText);
-//       }
-//     };
-//   });
-// });
+    fetch(url, { method: 'DELETE' })
+      .then((response) => console.log(response.json()))
+      .then(() => console.log(`Item deleted: (${id})`))
+      .catch((err) => console.error(err));
+
+    const removeItem = e.currentTarget.closest('.list-item');
+    removeItem.remove();
+  });
+});

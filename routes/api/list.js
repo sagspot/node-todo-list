@@ -1,4 +1,3 @@
-const { json } = require('express');
 const express = require('express');
 const uuid = require('uuid');
 const router = express.Router();
@@ -19,7 +18,6 @@ router.post('/', (req, res) => {
   }
   list.push(newItem);
   res.redirect('/');
-  // res.json(list);
 });
 
 // PUT
@@ -43,7 +41,7 @@ router.put('/:id', (req, res) => {
 });
 
 // DELETE
-router.delete('/delete/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const found = list.some((listItem) => listItem.id == req.params.id);
 
   if (found) {
@@ -55,8 +53,8 @@ router.delete('/delete/:id', (req, res) => {
     });
 
     list.splice(index, 1);
-    res.redirect('/');
-    // res.json(list);
+    // res.redirect('/');
+    res.json(list);
   } else {
     res
       .status(400)
