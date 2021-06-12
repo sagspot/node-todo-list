@@ -19,12 +19,17 @@ editBtns.forEach((editBtn) => {
     listForm.method = 'PUT';
     const itemInput = listForm.querySelector('input[type="text"]');
     const itemToUpdate = item.querySelector('.item');
+    itemInput.select();
     itemInput.value = itemToUpdate.innerHTML;
     const id = e.currentTarget.dataset.id;
 
     listForm.onsubmit = (e) => {
       e.preventDefault();
       const url = `/api/list/${id}`;
+      if (!itemInput.value) {
+        console.log('Please enter an item');
+        return;
+      }
       const updatedItem = {
         id,
         item: itemInput.value,
@@ -41,6 +46,9 @@ editBtns.forEach((editBtn) => {
         .catch((err) => console.error(err));
 
       itemToUpdate.innerHTML = itemInput.value;
+      listForm.querySelector('input[type="submit"]').value = 'Add Item';
+      listForm.method = 'POST';
+      itemInput.value = '';
     };
   });
 });

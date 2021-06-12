@@ -5,7 +5,14 @@
       <div
         class='form-control p-2 d-flex justify-content-between align-items-center'
       >
-        <input type='text' name='item' id='name' class='' placeholder='Item' />
+        <input
+          type='text'
+          name='item'
+          id='name'
+          class=''
+          placeholder='Item'
+          autofocus
+        />
         <input type='submit' value='Add Item' class='btn btn-primary' />
       </div>
     </form>
@@ -19,7 +26,7 @@
         >
           <div class='list-item--text'>
             <input type='checkbox' name='status' class='checkbox me-2' />
-            <span class='item'> {{this.item}} </span>
+            <span class='item'>{{this.item}}</span>
           </div>
 
           <div class='btns'>
