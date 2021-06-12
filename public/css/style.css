@@ -1,0 +1,36 @@
+body {
+  background: #f1f5f8;
+  box-sizing: border-box;
+}
+
+.list-container {
+  display: grid;
+  place-items: center !important;
+  width: 560px;
+  min-height: 100vh;
+}
+
+.list-container > div {
+  width: 100%;
+}
+
+.btns > * {
+  background: transparent;
+  border-color: transparent;
+}
+
+input[type='text'] {
+  width: calc(100% - 130px);
+  padding: 0.3rem;
+}
+input[type='submit'] {
+  width: 120px;
+}
+
+.form-control {
+  border-color: transparent;
+}
+
+.complete .item {
+  text-decoration: line-through;
+}
