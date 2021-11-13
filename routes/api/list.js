@@ -17,7 +17,8 @@ router.post('/', (req, res) => {
     return res.status(400).json({ msg: 'Please fill in all details' });
   }
   list.push(newItem);
-  res.redirect('/');
+  res.json({ item: newItem });
+  // res.redirect('/');
 });
 
 // PUT

@@ -43,8 +43,7 @@ Project is: _complete_ .
 
 ## Room for Improvement
 
-- Implement the `complete` feature - strikethough a complete task
-- Show error messages on the frontend (eg. you cant submit an empty item)
+- Push complete task to bottom of all tasks
 
 ## Acknowledgements
 
